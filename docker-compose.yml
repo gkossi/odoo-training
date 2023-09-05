@@ -1,32 +1,19 @@
-#On va renseigner la version de notre orchestrateur
 version: '3'
-# On va définir l'ensemble des services (un service odoo et un service postgres)
 services:
   odoo:
-    #On définit le nom de notre image
     image: ggs-odoo:1.0.0
-    #On va indiquer à notre orchestrateur qu'il va construire l'image à partir de notre fichier Dockerfile
     build:
       dockerfile : ./Dockerfile
       context: .
       env_file: .env
-
-      #On va indiquer qu'avant de démarrer odoo, il faut d'abord démarrer le service postgres
       depends_on:
         - postgres
-
-      #On va renseigner le port d'écoute
       ports:
         - "8069:8069"
-
-      #On va définir un réseau pour permettre à plusieurs instances de communiquer entre eux dans un orchestrateur
       networks:
         - ggsnet
-
-      #On va définir un volume pour faire la persistence des données
       volumes:
         - data:/var/lib/odoo
-
   postgres:
     image: postgres:13
     env_file: .env
@@ -36,10 +23,53 @@ services:
       - ggsnet
     volumes:
       - db:/var/lib/postgresql/data
-
-#On va demander à docker compose de créer automatiquement notre volume et notre réseau lors de son lancement
 volumes:
   data:
   db:
 networks:
   ggsnet:
+  
+# #On va renseigner la version de notre orchestrateur
+# version: '3'
+# # On va définir l'ensemble des services (un service odoo et un service postgres)
+# services
+  # odoo:
+    # #On définit le nom de notre image
+    # image: ggs-odoo:1.0.0
+    # #On va indiquer à notre orchestrateur qu'il va construire l'image à partir de notre fichier Dockerfile
+    # build:
+      # dockerfile : ./Dockerfile
+      # context: .
+      # env_file: .env
+
+      # #On va indiquer qu'avant de démarrer odoo, il faut d'abord démarrer le service postgres
+      # depends_on:
+        # - postgres
+
+      # #On va renseigner le port d'écoute
+      # ports:
+        # - "8069:8069"
+
+      # #On va définir un réseau pour permettre à plusieurs instances de communiquer entre eux dans un orchestrateur
+      # networks:
+        # - ggsnet
+
+      # #On va définir un volume pour faire la persistence des données
+      # volumes:
+        # - data:/var/lib/odoo
+  # postgres:
+    # image: postgres:13
+    # env_file: .env
+    # ports:
+      # - "5345:5345"
+    # networks:
+      # - ggsnet
+    # volumes:
+      # - db:/var/lib/postgresql/data
+
+# #On va demander à docker compose de créer automatiquement notre volume et notre réseau lors de son lancement
+# volumes:
+  # data:
+  # db:
+# networks:
+  # ggsnet:
