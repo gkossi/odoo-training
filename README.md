@@ -29,3 +29,4 @@ Le répertoire du projet contient :
 - Un fichier ***.env*** va contenir les variables d'environnement à utiliser.
 - Un fichier ***Dockerfile*** va contenir les paramètres servant au build de notre image Odoo
 - Un fichier ***docker-compose.yml*** va contenir les paramètres servant à l'orchestration de plusieurs services (la couche métier, la couche présentation et la couche base de données)
+- Un fichier ***run.sh*** va contenir les instructions et méthodes nécessaires servant de script pour les routines
