@@ -1,0 +1,2 @@
+# odoo-training
+Odoo Administration
